@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package proto;
+
+/*-------------------------------------------------------客户端消息----------------------------------------------------*/
+
+message Hall_C_Msg {
+    string  Token = 1;
+}
+
+
+/*-------------------------------------------------------服务端消息----------------------------------------------------*/
+
+//成功+心跳
+message Hall_S_Msg {
+    int32 UserID = 1;                       //用户id
+    string NikeName = 2;                    //用户昵称
+    float UserGold = 3;                     //用户金币
+    float UserDiamonds = 4;                 //用户钻石
+    int32 MemberOrder = 5;                  //会员等级
+    string PhoneNumber = 6;                 //手机号码
+    string BinderCardNo = 7;                //银行卡
+    int32 FaceID = 8;                       //头像id
+    int32 RoleID = 9;       			    //角色标识
+    int32 SuitID = 10; 		        	    //套装标识
+    int32 PhotoFrameID = 11;	            //头像框标识
+    int32 Gender = 12;	                    //性别：0女，1男xww
+    int64 TimeStamp = 13;                   //时间戳
+    repeated Announcement AnnouncementList = 14;//公告列表
+}
+
+message Announcement {
+    int32 NewsID = 1; //公告标识
+    string Subject = 2;//公告标题
+    string Body = 3;//公告内容
+    string FormattedBody = 4;//带格式公告内容
+    int32 ClassID = 5; //公告类别1 新闻公告，2 跑马灯
+}
+
+//失败
+message Hall_S_Fail {
+    int32 ErrorCode = 1;        //错误代码
+    string ErrorMsg = 2;        //错误描述
+}

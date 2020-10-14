@@ -1,0 +1,25 @@
+syntax="proto3";
+
+package proto;
+
+service Db {
+    // 获取游戏服务器
+    rpc GetHost(DbReqHost) returns (DbRespHost) {}
+}
+
+message DbReqHost {
+    string hostName = 1;
+}
+
+message DbHost {
+    int32 id = 1;
+    string hostName = 2;
+    string ip =3;
+    string port =4;
+}
+
+message DbRespHost {
+    int32 code = 1;
+    string message =2;
+    repeated DbHost host = 3;
+}

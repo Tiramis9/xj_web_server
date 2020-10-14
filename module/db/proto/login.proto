@@ -1,0 +1,46 @@
+syntax="proto3";
+package proto;
+
+service LoginDBGRPCService {
+    //微信登陆
+    rpc WechatLogin(LoginDB_C_Wechat) returns(LoginDB_S_Resp) {}
+    //手机登陆
+    rpc MobileLogin(LoginDB_C_Mobile) returns(LoginDB_S_Resp) {}
+    //游客登陆
+    rpc VisitorLogin(LoginDB_C_Visitor) returns(LoginDB_S_Resp) {}
+}
+
+//微信登陆
+message LoginDB_C_Wechat {
+    int32 AgentID = 1;          //邀请人id
+    string UserUin = 2;         //微信uid
+    bool Gender = 3;            //性别
+    string NikeName = 4;        //网名
+    string HeadImageUrl = 5;    //头像url
+    string MachineID = 6;       //机器序列号
+    int32 DeviceType = 7;       //机器设备类型
+    string ClientAddr = 8;      //客户端ip
+}
+
+//手机号码登陆
+message LoginDB_C_Mobile {
+    string PhoneNumber = 1;     //手机号码
+    string Password = 2;        //密码
+    string MachineID = 3;       //机器序列号
+    int32 DeviceType = 4;       //机器设备类型
+    string ClientAddr = 5;      //客户端ip
+}
+
+//游客登陆
+message LoginDB_C_Visitor {
+    string MachineID = 1;       //机器序列号
+    int32 DeviceType = 2;       //机器设备类型
+    string ClientAddr = 3;      //客户端ip
+}
+
+//登陆反馈
+message LoginDB_S_Resp {
+    int32 ErrorCode = 1;        //错误代码
+    string ErrorMsg = 2;        //错误描述
+    bytes Data = 3;             //数据
+}

@@ -1,0 +1,68 @@
+syntax = "proto3";
+package proto;
+
+service LoginGRPCService {
+    //登陆服务处理接口
+    rpc Handler(ReqLogin) returns(RespLogin) {}
+}
+
+message ReqLogin {
+    int32 RouteID = 1;          //路由id
+    string ClientAddr = 2;      //客户端ip
+    string SocketID = 3;        //socket id
+    bytes Data = 4;             //数据
+}
+
+message RespLogin {
+    bool IsClose = 1;       //关闭标识
+    int32 RouteID = 2;      //路由id
+    bytes Data = 3;         //数据
+}
+
+
+
+/*-------------------------------------------------------客户端消息----------------------------------------------------*/
+//微信登陆
+message Login_C_Wechat {
+    int32 AgentID = 1;          //邀请人id
+    string UserUin = 2;         //微信uid
+    bool Gender = 3;            //性别
+    string NikeName = 4;        //网名
+    string HeadImageUrl = 5;    //头像url
+    string MachineID = 6;       //机器序列号
+    int32 DeviceType = 7;       //机器设备类型
+}
+
+//手机号码登陆
+message Login_C_Mobile {
+    string PhoneNumber = 1;     //手机号码
+    string Password = 2;        //密码
+    string MachineID = 3;       //机器序列号
+    int32 DeviceType = 4;       //机器设备类型
+}
+
+//游客登陆
+message Login_C_Visitor {
+    string MachineID = 1;           //机器序列号
+    int32 DeviceType = 2;       //机器设备类型
+}
+
+
+
+/*-------------------------------------------------------服务端消息----------------------------------------------------*/
+//登陆成功
+message Login_S_Success {
+    int32 UserID = 1;           //用户id
+    float UserGold = 2;         //用户金币
+    float UserDiamonds = 3;     //用户钻石
+    int32 MemberOrder = 4;      //会员等级
+    string PhoneNumber = 5;     //手机号码
+    string binderCardNo = 6;    //银行卡
+    int32 FaceID = 7;           //头像id
+}
+
+//登陆失败
+message Login_S_Fail {
+    int32 ErrorCode = 1;        //错误代码
+    string ErrorMsg = 2;        //错误描述
+}
